@@ -32,7 +32,16 @@ let enApp = true;           // alguna ventana nuestra tiene el foco
 let cerrandoTodo = false;
 let ultimoAviso = null;
 
-Menu.setApplicationMenu(null);
+// Sin menu en Windows y Linux. En Mac hace falta un menu Edicion minimo:
+// sin el, Cmd+C y Cmd+V no funcionan en ningun campo de texto.
+if (process.platform === 'darwin') {
+  Menu.setApplicationMenu(Menu.buildFromTemplate([
+    { role: 'appMenu', submenu: [{ role: 'about', label: 'Acerca de ANTI.EXAMEN5' }, { type: 'separator' }, { role: 'quit', label: 'Salir de ANTI.EXAMEN5' }] },
+    { role: 'editMenu', label: 'Edición' }
+  ]));
+} else {
+  Menu.setApplicationMenu(null);
+}
 app.setAppUserModelId('com.antiexamen5.app');
 
 /* ---------------------------------------------------- una sola copia */
@@ -48,6 +57,15 @@ if (process.defaultApp && process.argv.length >= 2) {
 } else {
   app.setAsDefaultProtocolClient(PROTOCOLO);
 }
+
+// En Mac los enlaces antiexamen5:// llegan por este evento, no por argv.
+let enlacePendiente = null;
+app.on('open-url', (e, enlace) => {
+  e.preventDefault();
+  if (!app.isReady() || !principal) { enlacePendiente = enlace; return; }
+  if (!sesion) abrirEnlace(enlace);
+  principal.show(); principal.focus();
+});
 
 // antiexamen5://e/abc-def  ->  rendir.html?c=abc-def
 function urlDeEnlace(enlace) {
@@ -311,7 +329,7 @@ app.whenReady().then(() => {
     });
   }
   screen.on('display-added', () => revisarPantallas('se conectó durante el examen'));
-  const enlace = process.argv.find((a) => a.startsWith(PROTOCOLO + '://'));
+  const enlace = enlacePendiente || process.argv.find((a) => a.startsWith(PROTOCOLO + '://'));
   crearPrincipal(enlace ? urlDeEnlace(enlace) : null);
 });
 

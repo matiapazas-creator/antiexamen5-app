@@ -1,9 +1,12 @@
 {
   "name": "antiexamen5",
   "productName": "ANTI.EXAMEN5",
-  "version": "1.0.0",
-  "description": "Navegador seguro con burbuja para rendir exámenes supervisados por ANTI.EXAMEN5",
-  "author": "ANTI.EXAMEN5",
+  "version": "1.1.0",
+  "description": "Navegador seguro con burbuja para rendir exámenes supervisados por ANTI.EXAMEN5 (Windows, Mac y Linux)",
+  "author": {
+    "name": "ANTI.EXAMEN5",
+    "email": "no-responder@antiexamen5.com"
+  },
   "license": "UNLICENSED",
   "private": true,
   "main": "main.js",
@@ -19,7 +22,6 @@
     "appId": "com.antiexamen5.app",
     "productName": "ANTI.EXAMEN5",
     "copyright": "ANTI.EXAMEN5",
-    "artifactName": "ANTI-EXAMEN5-Setup-${version}.${ext}",
     "directories": {
       "buildResources": "build",
       "output": "dist"
@@ -36,8 +38,8 @@
       "sin-conexion.js",
       "estilos.css",
       "fuentes/**",
-      "build/icon.png",
-      "package.json"
+      "package.json",
+      "build/icon.png"
     ],
     "protocols": [
       {
@@ -57,7 +59,8 @@
         }
       ],
       "icon": "build/icon.ico",
-      "legalTrademarks": "ANTI.EXAMEN5"
+      "legalTrademarks": "ANTI.EXAMEN5",
+      "artifactName": "ANTI-EXAMEN5-Windows.${ext}"
     },
     "nsis": {
       "oneClick": true,
@@ -72,6 +75,48 @@
       ],
       "language": "3082"
     },
-    "publish": null
-  }
+    "publish": null,
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        }
+      ],
+      "icon": "build/icon-1024.png",
+      "category": "public.app-category.education",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "artifactName": "ANTI-EXAMEN5-Mac.${ext}",
+      "minimumSystemVersion": "11.0"
+    },
+    "dmg": {
+      "title": "ANTI.EXAMEN5",
+      "artifactName": "ANTI-EXAMEN5-Mac.${ext}"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon-1024.png",
+      "category": "Education",
+      "artifactName": "ANTI-EXAMEN5-Linux.${ext}",
+      "synopsis": "Navegador seguro para exámenes supervisados",
+      "maintainer": "ANTI.EXAMEN5 <no-responder@antiexamen5.com>",
+      "syncDesktopName": true
+    },
+    "deb": {
+      "artifactName": "ANTI-EXAMEN5-Linux.${ext}"
+    }
+  },
+  "homepage": "https://antiexamen5.com",
+  "desktopName": "antiexamen5.desktop"
 }

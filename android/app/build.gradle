@@ -1,0 +1,52 @@
+plugins {
+    id 'com.android.application'
+}
+
+// La llave de firma llega desde GitHub (Settings > Secrets). Nunca se sube al repositorio.
+def llave = System.getenv('AE5_KEYSTORE_FILE')
+def clave = System.getenv('AE5_KEY_PASSWORD')
+def nombreVersion = (project.findProperty('ae5VersionName') ?: '1.0.0').toString()
+def codigoVersion = Integer.parseInt((project.findProperty('ae5VersionCode') ?: '1').toString())
+
+android {
+    namespace 'com.antiexamen5.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.antiexamen5.app'
+        minSdk 26
+        targetSdk 35
+        versionCode codigoVersion
+        versionName nombreVersion
+    }
+
+    signingConfigs {
+        release {
+            if (llave) {
+                storeFile file(llave)
+                storePassword clave
+                keyAlias 'antiexamen5'
+                keyPassword clave
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (llave) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}

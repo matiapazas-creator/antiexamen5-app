@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Tema" parent="@android:style/Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@color/urdimbre</item>
+        <item name="android:statusBarColor">@color/urdimbre</item>
+        <item name="android:navigationBarColor">@color/urdimbre</item>
+        <item name="android:colorAccent">@color/maiz</item>
+    </style>
+    <color name="urdimbre">#11121B</color>
+    <color name="maiz">#F2C94C</color>
+</resources>
