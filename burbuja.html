@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'">
+  <title>ANTI.EXAMEN5</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="burbuja">
+  <div class="b-orillo" aria-hidden="true"></div>
+  <div class="b-cab" id="cab"><span class="b-luz" aria-hidden="true"></span><span id="cab-texto">Supervisión activa</span></div>
+  <div class="b-cifras">
+    <div class="b-reloj mono" id="reloj" role="timer" aria-label="Tiempo restante">--:--</div>
+    <div class="b-faltas" id="faltas-caja"><b class="mono" id="faltas">0/3</b><small>Advertencias</small></div>
+  </div>
+  <div class="b-tiempo" aria-hidden="true"><span id="barra"></span></div>
+  <div class="b-botones">
+    <button class="b-boton" type="button" id="ver">Examen</button>
+    <button class="b-boton accion" type="button" id="terminar">Terminé</button>
+  </div>
+  <div class="b-aviso" id="aviso" role="status" aria-live="polite" hidden><b id="aviso-titulo"></b><span id="aviso-texto"></span></div>
+  <script src="burbuja.js"></script>
+</body>
+</html>

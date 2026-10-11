@@ -1,0 +1,77 @@
+{
+  "name": "antiexamen5",
+  "productName": "ANTI.EXAMEN5",
+  "version": "1.0.0",
+  "description": "Navegador seguro con burbuja para rendir exámenes supervisados por ANTI.EXAMEN5",
+  "author": "ANTI.EXAMEN5",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis --x64"
+  },
+  "devDependencies": {
+    "electron": "43.7.9",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "com.antiexamen5.app",
+    "productName": "ANTI.EXAMEN5",
+    "copyright": "ANTI.EXAMEN5",
+    "artifactName": "ANTI-EXAMEN5-Setup-${version}.${ext}",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "permitidos.js",
+      "preload.js",
+      "examen-preload.js",
+      "burbuja.html",
+      "burbuja.js",
+      "burbuja-preload.js",
+      "sin-conexion.html",
+      "sin-conexion.js",
+      "estilos.css",
+      "fuentes/**",
+      "build/icon.png",
+      "package.json"
+    ],
+    "protocols": [
+      {
+        "name": "ANTI.EXAMEN5",
+        "schemes": [
+          "antiexamen5"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "legalTrademarks": "ANTI.EXAMEN5"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "runAfterFinish": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "ANTI.EXAMEN5",
+      "deleteAppDataOnUninstall": true,
+      "installerLanguages": [
+        "es_ES"
+      ],
+      "language": "3082"
+    },
+    "publish": null
+  }
+}
