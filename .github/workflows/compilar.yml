@@ -1,0 +1,34 @@
+# Compila el instalador de Windows en los servidores de GitHub y lo publica
+# como una "release" con su enlace de descarga. Se ejecuta a mano desde la
+# pestana Actions > "Compilar instalador de Windows" > Run workflow.
+name: Compilar instalador de Windows
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versión del instalador (por ejemplo 1.0.0)"
+        required: true
+        default: "1.0.0"
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm version ${{ inputs.version }} --no-git-tag-version --allow-same-version
+      - run: npx electron-builder --win nsis --x64 --publish never
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ inputs.version }}
+          name: ANTI.EXAMEN5 ${{ inputs.version }} para Windows
+          body: Instalador de la aplicación ANTI.EXAMEN5 para Windows 10 y 11.
+          files: dist/*.exe
